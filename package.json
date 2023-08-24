@@ -9,7 +9,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.3.4"
+    "@fgneba/vue-modal": "^1.7.5",
+    "clipboard": "^2.0.11",
+    "flowbite": "^1.8.1",
+    "flowbite-vue": "^0.0.17-next.0",
+    "jenesius-vue-modal": "^1.9.0",
+    "pinia": "^2.1.6",
+    "vue": "^3.3.4",
+    "vue-final-modal": "^4.4.5",
+    "vue-preloader": "^1.1.2",
+    "vue-sidebar-menu": "^5.2.10",
+    "vue-virtual-scroller": "^2.0.0-beta.8",
+    "vue3-json-viewer": "^2.2.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
