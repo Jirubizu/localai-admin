@@ -7,8 +7,6 @@
         <div v-if="selectedTab === 'settings'" class="flex-1 p-4">
             <!--  -->
         </div>
-
-<!--        <ModalsContainer />-->
     </div>
 </template>
 
@@ -18,7 +16,7 @@ import Sidebar from './components/Sidebar.vue';
 
 import ModelGallery from './components/ModelGallery.vue';
 
-import { watch } from "vue";
+// import { watch } from "vue";
 
   // // no need to import defineEmits
   // const emit = defineEmits(["update:modelValue"]);

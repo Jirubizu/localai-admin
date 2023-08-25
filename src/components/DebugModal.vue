@@ -7,8 +7,7 @@
                 <label
                     class="btn btn-sm btn-circle absolute right-2 top-2"
                     @click="modal.close()"
-                >✕</label
-                >
+                >✕</label>
 
                 <!-- dynamic components, using model to share values payload -->
                 <component :is="view" v-model="model"></component>
@@ -29,9 +28,10 @@
 </template>
 
 <script lang="ts" setup>
-import {defineComponent, reactive} from "vue";
+import {reactive} from "vue";
 import {storeToRefs} from "pinia";
 import {useModal} from "../store/modal.ts";
+import {JsonViewer} from 'vue3-json-viewer';
 
 const modal = useModal();
 
