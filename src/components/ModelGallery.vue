@@ -22,7 +22,6 @@ import ModelCard from './ModelCard.vue';
 const api_host = inject('api_host')
 const models = ref<object[]>([]);
 const searchQuery = ref("");
-
 const filteredList = computed(() => {
     const loweredSearchQuery = searchQuery.value.toLowerCase();
 

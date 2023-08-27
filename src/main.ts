@@ -6,6 +6,7 @@ import {createPinia} from 'pinia'
 // import VueVirtualScroller from 'vue-virtual-scroller'
 import { RecycleScroller } from 'vue-virtual-scroller'
 import * as ConfirmDialog from 'vuejs-confirm-dialog'
+import Notifications from 'notiwind'
 // ---- CSS -----
 import './style.css'
 import "vue3-json-viewer/dist/index.css";
@@ -16,7 +17,8 @@ const app = createApp(App)
 const vfm = createVfm()
 const store = createPinia()
 
-app.use(JsonViewer);
+app.use(JsonViewer)
+app.use(Notifications)
 app.use(vfm)
 app.use(store)
 app.use(ConfirmDialog)
