@@ -4,7 +4,7 @@
       <h1 class="text-5xl font-extrabold dark:text-white">Jobs</h1>
     </div>
     <div class="flex justify-center flex-wrap">
-        <div v-for="url in job_urls" :key="job">
+        <div v-for="url in job_urls" :key="url">
             <JobCard :url="url"/>
         </div>
     </div>
