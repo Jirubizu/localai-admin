@@ -1,0 +1,17 @@
+version: "3.4"
+services:
+  localai_admin:
+    image: node:alpine
+    container_name: localai_admin
+    entrypoint: /bin/sh
+    ports:
+      - 8089:8089
+    working_dir: /srv/app
+    volumes:
+      - type: bind
+        source: ./
+        target: /srv/app
+    command: |
+        -c "
+            npm run dev
+        "
