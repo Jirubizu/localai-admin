@@ -5,6 +5,7 @@ import {createVfm} from 'vue-final-modal'
 import {createPinia} from 'pinia'
 // import VueVirtualScroller from 'vue-virtual-scroller'
 import { RecycleScroller } from 'vue-virtual-scroller'
+import * as ConfirmDialog from 'vuejs-confirm-dialog'
 // ---- CSS -----
 import './style.css'
 import "vue3-json-viewer/dist/index.css";
@@ -14,12 +15,11 @@ import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 const app = createApp(App)
 const vfm = createVfm()
 const store = createPinia()
-// app.use(VueSidebarMenu)
 
-
-// app.use(VueVirtualScroller)
 app.use(JsonViewer);
 app.use(vfm)
 app.use(store)
+app.use(ConfirmDialog)
 app.component('RecycleScroller', RecycleScroller)
+app.provide("api_host", "http://0.0.0.0:8080")
 app.mount('#app')
