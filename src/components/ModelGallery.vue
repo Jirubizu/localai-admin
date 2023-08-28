@@ -16,24 +16,24 @@
 </template>
 
 <script setup lang="ts">
-import {computed, inject, onMounted, ref} from 'vue';
+import {computed, onMounted, ref} from 'vue';
 import ModelCard from './ModelCard.vue';
+import {Model} from "../interfaces/model.ts";
 
-const api_host = inject('api_host')
-const models = ref<object[]>([]);
+const models = ref<Model[]>([]);
 const searchQuery = ref("");
 const filteredList = computed(() => {
     const loweredSearchQuery = searchQuery.value.toLowerCase();
 
-    let filtered = models.value.filter((model: object) => {
+    return models.value.filter((model: Model) => {
         return model.name.includes(loweredSearchQuery);
     });
-    return filtered;
 });
 
 onMounted(async () => {
-
-    const response = await fetch(`${api_host}/models/available`);
+    console.log(import.meta.env)
+    console.log(`${import.meta.env.VITE_API_BASE}/models/available`)
+    const response = await fetch(`${import.meta.env.VITE_API_BASE}/models/available`);
     models.value = await response.json();
 });
 

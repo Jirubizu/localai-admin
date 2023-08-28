@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@agile-ts/core": "^0.2.9",
     "@fgneba/vue-modal": "^1.7.5",
     "@headlessui/vue": "^1.7.16",
     "@material-tailwind/html": "^2.0.0",

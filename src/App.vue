@@ -54,7 +54,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref, defineAsyncComponent, defineComponent} from 'vue';
+import {ref} from 'vue';
 import Sidebar from './components/Sidebar.vue';
 
 import ModelGallery from './components/ModelGallery.vue';
