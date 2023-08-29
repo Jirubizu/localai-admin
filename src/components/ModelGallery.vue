@@ -8,17 +8,29 @@
                    placeholder="Search...">
         </div>
     </div>
-    <div class="flex flex-wrap">
-        <div v-for="item in filteredList" :key="item">
-            <ModelCard :model="item"/>
-        </div>
+    <div class="flex flex-col h-auto p-2 border rounded">
+        <RecycleScroller
+        class="scroller"
+        :items="chunks"
+        :key-field="'id'"
+        :itemSize="280"
+    >
+        <template #default="{ item, index }">
+            <div :key="index" class="grid grid-cols-3">
+                <ModelCard v-for="(model) in item.data" :key="model.name" :model="model"/>
+            </div>
+        </template>
+    </RecycleScroller>
     </div>
+    
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted, ref} from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import { RecycleScroller } from 'vue-virtual-scroller'
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 import ModelCard from './ModelCard.vue';
-import {Model} from "../interfaces/model.ts";
+import { Model } from "../interfaces/model.ts";
 
 const models = ref<Model[]>([]);
 const searchQuery = ref("");
@@ -26,19 +38,46 @@ const filteredList = computed(() => {
     const loweredSearchQuery = searchQuery.value.toLowerCase();
 
     return models.value.filter((model: Model) => {
-        return model.name.includes(loweredSearchQuery);
+        return model.name.toLowerCase().includes(loweredSearchQuery);
     });
 });
 
-onMounted(async () => {
-    console.log(import.meta.env)
-    console.log(`${import.meta.env.VITE_API_BASE}/models/available`)
-    const response = await fetch(`${import.meta.env.VITE_API_BASE}/models/available`);
-    models.value = await response.json();
+const chunks = computed(() => {
+  const chunkSize = 3;
+  return filteredList.value.reduce((resultArray, item, index) => { 
+    const chunkIndex = Math.floor(index/chunkSize)
+        if(!resultArray[chunkIndex]) {
+            resultArray[chunkIndex] = { id: chunkIndex, data: [], height: 0 } 
+        }
+        resultArray[chunkIndex].data.push(item)
+
+        // Calculate the height of the item here.
+        // This is just an example, you would need to calculate the actual height.
+        resultArray[chunkIndex].height = resultArray[chunkIndex].data.length * 100;
+
+        return resultArray
+  }, [])
 });
 
-// defineExpose({models, searchQuery})
-</script>
-<style>
+console.log
 
+onMounted(async () => {
+    const response = await fetch(`${import.meta.env.VITE_API_BASE}/models/available`);
+    let responseJson = await response.json();
+    for (let i = 0; i < responseJson.length; i++) {
+        responseJson[i].filename = responseJson[i].name;
+        responseJson[i].name = responseJson[i].name
+            .replace(/\.bin|-|_|__/g, " ");
+    }
+
+    models.value = responseJson;
+});
+
+</script>
+
+<style>
+.scroller {
+  height: 80vh;
+  overflow-y: auto;
+}
 </style>

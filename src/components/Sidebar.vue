@@ -1,13 +1,3 @@
-<!--<template>-->
-<!--    <div class="w-64 h-screen bg-gray-800 text-white">-->
-<!--        <ul>-->
-<!--            <li @click="selectTab('models')" id="models">Models</li>-->
-<!--            <li @click="selectTab('settings')" id="settings">Settings</li>-->
-<!--        </ul>-->
-<!--    </div>-->
-
-<!--</template>-->
-
 <template>
     <div class="flex">
         <div class="flex flex-col h-screen p-3 bg-white shadow w-60">
@@ -17,7 +7,7 @@
                 </div>
                 <div class="flex-1">
                     <ul class="pt-2 pb-4 space-y-1 text-sm">
-                        <li @click="selectTab('models')" class="rounded-sm">
+                        <li @click="selectTab('models')" class="rounded-sm" :class="{'bg-green-400': selectedTab === 'models'}">
                             <a
                                 href="#"
                                 class="flex items-center p-2 space-x-3 rounded-md"
@@ -40,7 +30,7 @@
                                 <span>Models</span>
                             </a>
                         </li>
-                        <li @click="selectTab('jobs')" class="rounded-sm">
+                        <li @click="selectTab('jobs')" class="rounded-sm" :class="{'bg-green-400': selectedTab === 'jobs'}">
                             <a
                                 href="#"
                                 class="flex items-center p-2 space-x-3 rounded-md"
@@ -63,7 +53,7 @@
                                 <span>Jobs</span>
                             </a>
                         </li>
-                        <li @click="selectTab('settings')" class="rounded-sm">
+                        <li @click="selectTab('settings')" class="rounded-sm" :class="{'bg-green-400': selectedTab === 'settings'}">
                             <a
                                 href="#"
                                 class="flex items-center p-2 space-x-3 rounded-md"
@@ -94,9 +84,12 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
 const emits = defineEmits(['tab-selected']);
+const selectedTab = ref('models');
 
 const selectTab = (tabName: string) => {
+    selectedTab.value = tabName;
     emits('tab-selected', tabName);
 }
 </script>
