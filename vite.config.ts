@@ -6,7 +6,10 @@ import VueDevTools from 'vite-plugin-vue-devtools'
 export default defineConfig({
   server: {
     host: true,
-    port: 8089
+    port: 8089,
+    watch: {
+      usePolling: true,
+    }
   },
   plugins: [vue(), VueDevTools()],
 })

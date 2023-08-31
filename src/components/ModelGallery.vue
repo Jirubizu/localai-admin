@@ -1,4 +1,9 @@
 <template>
+    <div v-if="error" class="flex justify-center">
+        <div class="rounded-md bg-red-500 p-4">
+            {{ error }}
+        </div>
+    </div>
     <div class="flex justify-center">
         <div class="align-middle w-fit">
             <input type="search" v-model="searchQuery" id="search"
@@ -34,6 +39,7 @@ import { Model } from "../interfaces/model.ts";
 
 const models = ref<Model[]>([]);
 const searchQuery = ref("");
+const error = ref("");
 const filteredList = computed(() => {
     const loweredSearchQuery = searchQuery.value.toLowerCase();
 
@@ -62,7 +68,13 @@ const chunks = computed(() => {
 console.log
 
 onMounted(async () => {
-    const response = await fetch(`${import.meta.env.VITE_API_BASE}/models/available`);
+    let response:Response = new Response();
+    try {
+        response = await fetch(`${import.meta.env.VITE_API_BASE}/models/available`);
+    } catch (e:unknown) {
+        error.value = "Network error. Ensure that the API is running and reachable."
+    }
+    
     let responseJson = await response.json();
     for (let i = 0; i < responseJson.length; i++) {
         responseJson[i].filename = responseJson[i].name;

@@ -11,22 +11,25 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
+import { ref, onMounted } from 'vue';
 import JobCard from "./JobCard.vue";
 
 const job_uuids = ref<string[]>([]);
 
-job_uuids.value.push("6d0ddd5a-44dc-11ee-ae11-0242ac130002")
-job_uuids.value.push("cda2cfe9-44e1-11ee-ae11-0242ac130002")
-job_uuids.value.push("cda2cfe9-44e1-11ee-ae11-0242ac130002")
-job_uuids.value.push("cda2cfe9-44e1-11ee-ae11-0242ac130002")
-job_uuids.value.push("cda2cfe9-44e1-11ee-ae11-0242ac130002")
-job_uuids.value.push("7e06844a-44e6-11ee-ae11-0242ac130002")
+onMounted(async () => {
+    let response:Response = new Response();
+    try {
+        response = await fetch(`${import.meta.env.VITE_API_BASE}/models/jobs`);
+    } catch (e:unknown) {
+        // error.value = "Network error. Ensure that the API is running and reachable."
+    }
+    
+    let responseJson = await response.json();
 
-// onMounted(async () => {
-//     const response = await fetch(`${api_host}/jobs`);
-//     jobs.value = await response.json();
-// })
+    for (let key in responseJson) {
+        job_uuids.value.push(key);
+    }
+})
 </script>
 
 <style scoped>

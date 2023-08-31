@@ -67,12 +67,18 @@ const localModelData = reactive({name: modelData.name});
 
 async function installModel() {
     console.log(`${modelData.gallery.name}@${modelData.name}`)
-    const response = await fetch('http://0.0.0.0:8080/models/apply', {
+    const url = import.meta.env.VITE_API_BASE + "/models/apply";
+    const response = await fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({id: `${modelData.gallery.name}@${modelData.name}`, name: `${localModelData.name}`})
+        body: JSON.stringify(
+            {
+                id: `${modelData.gallery.name}@${modelData.name}`,
+                name: `${localModelData.name}`
+            }
+        )
     });
     const data = await response.json();
     console.log(data);

@@ -1,5 +1,5 @@
 <template>
-    <div class="border rounded-lg p-4 shadow-lg m-2 w-[530px] h-64 flex flex-col" id="model_card">
+    <div class="border rounded-lg p-4 shadow-lg m-2 w-[530px] h-64 flex flex-col main-color-border-hover" id="model_card">
         <div class="h-modal">
             <h2 class="text-xl font-bold wrap overflow-hidden">{{ model.name }}</h2>
             <p class="text-gray-600 text-sm">Filename: {{ model.filename }}</p>
@@ -11,7 +11,8 @@
         <div>
             <button @click="basicInstall(model)" class="mt-4 mr-4 bg-blue-500 text-white px-4 py-2 rounded">Install</button>
             <button @click="openModel" class="mt-4 mr-4 bg-blue-500 text-white px-4 py-2 rounded right">View Debug</button>
-            <button @click="openAdvInstall" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded right">Adv Install</button>
+            <button @click="openAdvInstall" class="mt-4 mr-4 bg-blue-500 text-white px-4 py-2 rounded right">Adv Install</button>
+            <button v-if="model.gallery.name === 'huggingface'" @click="navigateToUrl(model.urls[0])" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded right">Open in HF</button>
         </div>
     </div>
 </template>
@@ -41,6 +42,10 @@ const openModel = () => {
 const openAdvInstall = () => {
     const { reveal } = createConfirmDialog(InstallModal, { json_data: model });
     reveal();
+}
+
+const navigateToUrl = (url: string) => {
+    window.open(url, '_blank');
 }
 
 </script>

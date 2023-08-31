@@ -10,12 +10,13 @@ function installNotification() {
 }
 
 async function basicInstall(model:Model) {
+    console.log(model);
     const response = await fetch(`${import.meta.env.VITE_API_BASE}/models/apply`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({id: `${model.gallery.name}@${model.name}`})
+        body: JSON.stringify({id: `${model.gallery.name}@${model.filename}`})
     });
     const data = await response.json();
     console.log(data);
@@ -29,7 +30,7 @@ async function install(model:Model) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({id: `${model.gallery.name}@${model.name}`})
+        body: JSON.stringify({id: `${model.gallery.name}@${model.filename}`})
     });
     const data = await response.json();
     console.log(data);

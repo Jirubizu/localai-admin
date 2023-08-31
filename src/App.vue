@@ -56,7 +56,6 @@
 <script setup lang="ts">
 import {ref} from 'vue';
 import Sidebar from './components/Sidebar.vue';
-
 import ModelGallery from './components/ModelGallery.vue';
 import Settings from "./components/Settings.vue";
 import JobsGallery from "./components/JobsGallery.vue";
@@ -65,6 +64,24 @@ import {Notification, NotificationGroup} from "notiwind";
 const selectedTab = ref('models'); // Default to 'models'
 
 const updateSelectedTab = (tabName: string) => {
+    console.log("Updating selected tab: " + tabName )
     selectedTab.value = tabName;
 };
 </script>
+
+<style>
+:root {
+    --main-color: #eca480;
+    --main-color-hover: #eca48081;
+}
+.main-color {
+    background: var(--main-color);
+}
+.main-color-hover:hover {
+    background: var(--main-color-hover);
+}
+.main-color-border-hover:hover {
+    border-width: 3px;
+    border-color: var(--main-color-hover);
+}
+</style>
